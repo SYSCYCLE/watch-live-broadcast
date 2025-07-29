@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canlı Video Kayıt</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        video { border: 2px solid black; background-color: #333; }
+        button { font-size: 1.2em; padding: 10px 20px; margin-top: 20px; cursor: pointer; }
+        #durum { margin-top: 20px; font-style: italic; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>Video Kayıt Uygulaması</h1>
+    <p>Yayını başlatmak için kameranıza izin vermeniz gerekmektedir.</p>
+
+    <!-- Kullanıcının kendi kamerasını görmesi için (isteğe bağlı) -->
+    <video id="videoPreview" width="400" height="300" autoplay muted></video>
+    <br>
+    <button id="baslatBtn">Yayını Başlat ve Kaydet</button>
+    <div id="durum"></div>
+
+    <script src="client.js"></script>
+</body>
+</html>
