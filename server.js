@@ -1,5 +1,5 @@
 const express = require('express');
-const multer =require('multer');
+const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
@@ -39,7 +39,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 app.use(express.static('public'));
 
 
-// === DÜZELTİLMİŞ ve KESİN ÇÖZÜM ===
 function pushToGithub(filename) {
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const REPO_URL = 'github.com/SYSCYCLE/watch-live-broadcast.git'; 
@@ -49,15 +48,12 @@ function pushToGithub(filename) {
         return;
     }
 
-    // Sorunlu 'git pull' ve 'config' komutları tamamen kaldırıldı.
-    // 'push' komutuna hangi dala gideceği açıkça belirtildi: 'HEAD:main'
     const commands = [
-        // Commit için kullanıcı bilgisi eklemek yine de iyi bir pratiktir, ama global olmadan.
         'git config user.email "bot@render.com"',
         'git config user.name "Render Bot"',
-        `git add uploads/${filename}`,
+        // === İŞTE ÇÖZÜM: -f (force) bayrağını ekliyoruz ===
+        `git add -f uploads/${filename}`,
         `git commit -m "Yeni şifreli kayıt eklendi: ${filename}"`, 
-        // EN ÖNEMLİ DEĞİŞİKLİK BURADA: 'HEAD:main' ekledik.
         `git push https://${GITHUB_TOKEN}@${REPO_URL} HEAD:main`
     ].join(' && ');
 
@@ -72,8 +68,6 @@ function pushToGithub(filename) {
         console.log(`${filename} başarıyla GitHub'a gönderildi. Çıktı: ${stdout}`);
     });
 }
-// === /DÜZELTİLMİŞ ve KESİN ÇÖZÜM ===
-
 
 app.post('/upload', upload.single('video'), (req, res) => {
     if (!req.file) {
