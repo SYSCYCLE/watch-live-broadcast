@@ -42,7 +42,7 @@ app.use(express.static('public'));
 
 function pushToGithub(filename) {
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-    const REPO_URL = 'github.com/SYSCYCLE/watch-live-broadcast';
+    const REPO_URL = 'github.com/SYSCYCLE/watch-live-broadcast.git';
 
     if (!GITHUB_TOKEN) {
         console.error('HATA: GITHUB_TOKEN ortam değişkeni bulunamadı!');
